@@ -15,6 +15,3 @@ function increasingSeq(arr){
   }
   return longest.length;
 }
-
-// how to calculate increasing
-// if the number before is smaller than the number after it is an increasing seq 
