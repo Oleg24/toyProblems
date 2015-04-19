@@ -2,15 +2,31 @@
 
 // Find the largest palindrome made from the product of two 3-digit numbers.
 
-function findLargestPalindrome(){
+//  Brute force solution - n^2.  Will need to refactor.  
 
+function findLargestPalindrome(){
+  var fixed = 999;
+  var dec = 999;
+  var largest = 90909;  
+  for(var i = fixed; i > 900; i--){
+    console.log('fixed', fixed);
+    for(var j = dec; j > 900; j--){
+      var product = j * i;
+      console.log('product', product)
+      if(isPalindrome(product) && product > largest){
+        largest = product;
+      } 
+    }   
+  }
+  return largest;
 }
 
-// brute force - Fix 999, countdown from 999 for the other number and check if it is a palindrome.  
 
-isPalindrome(num){
+
+function isPalindrome(num){
   var pali = true;
-  var numArr = num.split('');
+  var numStr = num.toString();
+  var numArr = numStr.split('');
 
   for(var i = 0; i < numArr.length; i++){
     if(numArr[i] !== numArr[numArr.length - 1 - i]){
@@ -18,5 +34,5 @@ isPalindrome(num){
       return pali;
     } 
   }
-  return pali; 
+  return pali;
 }
