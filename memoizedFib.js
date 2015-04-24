@@ -49,7 +49,7 @@ function FibIt(n){
   for(var i = 1; i <= n; i++){
     fibSeq.push(fibSeq[fibSeq.length - 1] + fibSeq[fibSeq.length - 2]);
   }
-  return fibSeq[n];
+  return fibSeq[n-1];
 }
 
 
