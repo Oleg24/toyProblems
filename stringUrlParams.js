@@ -11,16 +11,38 @@
 function stripUrlParams(url, paramsToStrip){
   var urlObj = getBaseParams(url);
   if(!paramsToStrip){
-    var noDups =  removeDuplicates(urlObj.params);
-    return urlObj[url]+'?'+noDups;
+    var noDups =  removeDuplicatesStrip(urlObj.params);
+    if(noDups){
+      return urlObj.url+'?'+noDups;
+    } else {
+      return urlObj.url;
+    }
   } else {
-
+    var noDupsandStriped = removeDuplicatesStrip(urlObj.params, paramsToStrip);
+    if(noDupsandStriped){
+      return urlObj.url+'?'+noDupsandStriped;
+    } else {
+      return urlObj.url;
+    }
   }
 }
 
-function removeDuplicates(queryString){
+function removeDuplicatesStrip(queryString, paramsToStrip){
   if(!queryString){
     return '';
+  } else if(!paramsToStrip){
+    var queryObj = {};
+    queryString.split('&').forEach(function(query){
+     var arr = query.split('=');
+     if(!queryObj[arr[0]]){
+       queryObj[arr[0]] = arr[1];
+     }
+    });
+    var queryArr = [];
+    for(var key in queryObj){
+      queryArr.push(key+'='+queryObj[key]);
+    }
+    return queryArr.join('&')
   } else {
     var queryObj = {};
     queryString.split('&').forEach(function(query){
@@ -29,6 +51,11 @@ function removeDuplicates(queryString){
        queryObj[arr[0]] = arr[1];
      }
     });
+    for(var i = 0; i < paramsToStrip.length; i++){
+      if(queryObj[paramsToStrip[i]]){
+        delete queryObj[paramsToStrip[i]]
+      }
+    }
     var queryArr = [];
     for(var key in queryObj){
       queryArr.push(key+'='+queryObj[key]);
