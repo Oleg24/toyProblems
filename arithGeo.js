@@ -12,3 +12,28 @@ function ArithGeo(arr) {
     return -1;
   }
 }
+
+function ArithGeoII(arr){
+  var operation = ArithGeo(arr), check;
+  if(operation === "Arithmetic"){
+    checkValue = arr[1] - arr[0];
+  } else if(operation === "Geometric"){
+    checkValue = arr[1] / arr[0];
+  } else {
+    return -1;
+  }
+  for(var i = 1; i < arr.length - 1; i++){
+    if(operation === "Arithmetic"){
+      if(arr[i+1] - arr[i] !== checkValue){
+        operation = -1;
+        break;
+      }
+    } else if(operation === "Geometric"){
+      if(arr[i+1] / arr[i] !== checkValue){
+        operation = -1;
+        break;
+      }
+    }
+  }
+  return operation;
+}
